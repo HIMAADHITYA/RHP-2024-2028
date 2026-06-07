@@ -1,0 +1,54 @@
+import java.util.*;
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int rows=sc.nextInt();
+        int cols=sc.nextInt();
+        int matrix[][]=new int[rows][cols];
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
+                matrix[i][j]=sc.nextInt();
+                
+            }
+            
+        }
+        int dp[]=new int[rows];
+        for(int i=0;i<rows;i++){
+            dp[i]=matrix[i][0];
+            
+        }
+        for(int col=1;col<cols;col++){
+            int newDp[]=new int[rows];
+            for(int row=0;row<rows;row++){
+                int best=Integer.MIN_VALUE;
+                for(int prow=0;prow<rows;prow++){
+                    if(prow!=row){
+                        int sum=dp[prow]+matrix[row][col];
+                        if(sum>best){
+                            best=sum;
+                            
+                        }
+                        }
+                    
+                }
+                newDp[row]=best;
+                
+            }
+            dp=newDp;
+            
+        }
+        int ans=Integer.MIN_VALUE;
+        for(int value:dp){
+            if(value>ans){
+                ans=value;
+                
+            }
+            
+        }
+        System.out.println(ans);
+        
+    }
+    
+}
+
+
