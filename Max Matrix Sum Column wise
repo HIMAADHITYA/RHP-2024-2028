@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Main {
+    public static void main(String args[]) {
+        Scanner sc=new Scanner(System.in);
+        int rows=sc.nextInt();
+        int cols=sc.nextInt();
+        int matrix[][]=new int[rows][cols];
+        int dp[][]=new int[rows][cols];
+        for(int i=0;i<rows;i++) {
+            for(int j=0;j<cols;j++) {
+                matrix[i][j]=sc.nextInt();
+            }
+        }
+        for(int i=0;i<rows;i++) {
+            dp[i][0]=matrix[i][0];
+        }
+        for(int col=1;col<cols;col++) {
+            int max1=dp[0][col-1];
+            int max2=Integer.MIN_VALUE;
+            int maxRow=0;
+            for(int row=1;row<rows;row++) {
+                if(dp[row][col-1]>max1) {
+                    max2=max1;
+                    max1=dp[row][col-1];
+                    maxRow=row;
+                }
+                else if(dp[row][col-1]>max2) {
+                    max2=dp[row][col-1];
+                }
+            }
+            for(int row=0;row<rows;row++) {
+                if(row==maxRow) {
+                    dp[row][col]=matrix[row][col]+max2;
+                }
+                else {
+                    dp[row][col]=matrix[row][col]+max1;
+                }
+            }
+        }
+        int ans=dp[0][cols-1];
+
+        for(int row=1;row<rows;row++) {
+            if(dp[row][cols-1]>ans) {
+                ans=dp[row][cols-1];
+            }
+        }
+        System.out.println(ans);
+    }
+}
