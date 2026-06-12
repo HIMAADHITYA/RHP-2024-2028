@@ -1,0 +1,27 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+        HashMap<Integer, Integer> hm=new HashMap<>();
+        int sum=0;
+        int max=0;
+        hm.put(0,-1);
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='0') {
+                sum--;
+            } else{
+                sum++;
+            }
+            if (hm.containsKey(sum)){
+                int len=i-hm.get(sum);
+                if (len>max){
+                    max=len;
+                }
+            } else{
+                hm.put(sum,i);
+            }
+        }
+        System.out.println("Maximum Length : " +max);
+    }
+}
